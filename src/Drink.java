@@ -6,7 +6,7 @@ class Drink extends MenuItem{
     }
     static void drinkItems(){
             Scanner choice = new Scanner(System.in);
-
+            String drinkSize;
             System.out.println("------------DRINK ITEMS-----------");
             System.out.println("[1] Coca-Cola  150/=");
             System.out.println("[2] Mojito     200/=");
@@ -28,6 +28,18 @@ class Drink extends MenuItem{
                 System.out.println("3)Large");
                 System.out.println("Enter your choice: ");
                 int size = Integer.parseInt(choice.nextLine());
+
+                if (size==1){
+                    drinkSize="Small";
+                } else if (size==2) {
+                    drinkSize="Medium";
+                } else if (size==3) {
+                    drinkSize="Large";
+                }else {
+                    return;
+                }
+
+
             }else {
                 System.out.println("Enter a valid choice !");
                 return;
