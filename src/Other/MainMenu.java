@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package Other;
+
 public abstract class MainMenu {
     protected String name;
     protected double price;

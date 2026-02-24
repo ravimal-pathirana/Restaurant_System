@@ -1,4 +1,6 @@
- class Drink extends MainMenu {
+package Other;
+
+class Drink extends MainMenu {
      private String size;
      boolean isIced;
      public Drink(String name, double price){

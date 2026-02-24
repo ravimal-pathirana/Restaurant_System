@@ -1,3 +1,5 @@
+package Other;
+
 import java.util.ArrayList;
 
 class Food extends MainMenu {
