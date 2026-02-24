@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
 
-        // 1. Setup the basic window properties
+        // 1. Setting the basic window properties
         setTitle("QuickBite Ordering System");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
         // Add an invisible border to act as padding so buttons don't touch the window edges
         menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // 4. The "Magic Loop" - Dynamically building the buttons
+        // 4. A Loop to Dynamically build the buttons
         for (MenuItem item : catalog.getMenuItems()) {
 
             // Format the text to look nice on the button using HTML
