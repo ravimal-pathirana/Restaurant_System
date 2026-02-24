@@ -1,23 +1,20 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
-class Food   {
-    static void foodItems(){
-        Scanner choice = new Scanner(System.in);
-        System.out.println("------------FOOD ITEMS-----------");
-        System.out.println("[1]Pizza");
-        System.out.println("[2]Burger");
-        System.out.println("Enter your choice: ");
-        int choose = Integer.parseInt(choice.nextLine());
+class Food extends MainMenu {
+     private final String type;
+     private final ArrayList<String> toppings = new ArrayList<String>();
 
-        switch (choose){
-            case 1:
-                Pizza.pizzaVarities();
-                break;
-
-            case 2:
-                Burger.burgerVarities();
-                break;
+     public Food(String name, double price, String type){
+        super(name,price);
+        this.type = type;
+    }
+    public void addTopping(String topping) {    // better name: singular
+        if (topping != null && !topping.trim().isEmpty()) {
+            toppings.add(topping.trim());
         }
     }
 
+    public ArrayList<String> getTopping(){
+         return toppings;
+    }
 }

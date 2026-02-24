@@ -1,8 +1,10 @@
-public abstract class MenuItem {
+import java.util.ArrayList;
+public abstract class MainMenu {
     protected String name;
     protected double price;
+    protected double total;
 
-    public MenuItem(String name, double price) {
+    public MainMenu(String name, double price) {
         this.name=name;
         this.price=price;
     }
@@ -17,5 +19,6 @@ public abstract class MenuItem {
 
 
 }
+
 
 
