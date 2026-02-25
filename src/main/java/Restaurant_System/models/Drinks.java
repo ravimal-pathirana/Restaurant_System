@@ -1,10 +1,10 @@
-package com.Restaurant_System.models;
+package Restaurant_System.models;
 
 public class Drinks extends MenuItem {
     private String size;
 
-    public Drinks(String name,String description, double basePrice, String size) {
-        super(name, description, basePrice);
+    public Drinks(String name,String description, double basePrice, String imagePath ,String size) {
+        super(name, description, basePrice, imagePath);
         this.size = size;
     }
     public String getSize() {

@@ -1,4 +1,4 @@
-package com.Restaurant_System.models;
+package Restaurant_System.models;
 
 import java.util.ArrayList;
 import java.util.List;

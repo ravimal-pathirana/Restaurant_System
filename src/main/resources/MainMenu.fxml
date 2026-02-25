@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="MainMenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Restaurant_System.gui.MainMenuController">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="154.0" text="         Open :&#10;9.00 am - 9.00 pm" textAlignment="JUSTIFY" />
+            <Region prefHeight="100.0" prefWidth="253.0" HBox.hgrow="ALWAYS" />
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="245.0" text="       Silver Platter&#10;Restaurant and Cafe" textAlignment="JUSTIFY" textFill="#e82828" wrapText="true">
+               <font>
+                  <Font name="Bauhaus 93" size="22.0" />
+               </font>
+            </Label>
+            <Region prefHeight="100.0" prefWidth="214.0" HBox.hgrow="ALWAYS" />
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="208.0" text=" Contact us: &#10;0727896543" />
+         </children>
+         <padding>
+            <Insets left="60.0" right="60.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <TilePane fx:id="menuGrid" alignment="TOP_CENTER" hgap="20.0" vgap="20.0">
+               <opaqueInsets>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </opaqueInsets>
+               <children>
+                  <VBox prefHeight="250.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <TilePane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </TilePane.margin>
+                     <children>
+                        <ImageView fitHeight="120.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="19.0" prefWidth="201.0" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="193.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </TilePane>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

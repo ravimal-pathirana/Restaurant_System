@@ -1,15 +1,17 @@
-package com.Restaurant_System.models;
+package Restaurant_System.models;
 
 public abstract class MenuItem {
 
     private String name;
     private String description;
     private double basePrice;
+    private String imagePath;
 
-    public MenuItem(String name, String description, double basePrice) {
+    public MenuItem(String name, String description, double basePrice, String imagePath) {
         this.name = name;
         this.description = description;
         this.basePrice = basePrice;
+        this.imagePath = imagePath;
     }
     public String getName() {
         return name;
@@ -28,6 +30,10 @@ public abstract class MenuItem {
 
     public double getBasePrice() {
         return basePrice;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     public void setbasePrice(double basePrice) {
