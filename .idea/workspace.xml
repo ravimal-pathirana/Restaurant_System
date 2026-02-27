@@ -4,39 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43812f19-e237-449d-80b2-65df8c151768" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/MainMenuController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/utils/KitchenThread.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Restaurant_System/gui/MainMenu.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/ChickenBurger.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/ChickenPizza.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/CocaCola.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/FrenchFries.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/IceCoffee.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/Kottu.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/MilkTea.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/PapayaJuice.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Restaurant_System.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_sdk_25_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Other/Drink.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Other/Food.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Other/MainMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Other/Retaurent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Restaurant_System/gui/MainFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Restaurant_System/main/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Restaurant_System/models/Drinks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/Drinks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Restaurant_System/models/Foods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/Foods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Restaurant_System/models/MenuItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Restaurant_System/utils/KitchenThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuCatalog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/Order.java" afterDir="false" />
-    </list>
+    <list default="true" id="43812f19-e237-449d-80b2-65df8c151768" name="Changes" comment="Created the order customization popup and made order logic changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,8 +95,25 @@
       <workItem from="1772052517028" duration="1393000" />
       <workItem from="1772106507462" duration="2821000" />
       <workItem from="1772118770954" duration="16730000" />
-      <workItem from="1772177616626" duration="1461000" />
+      <workItem from="1772177616626" duration="3475000" />
     </task>
+    <task id="LOCAL-00001" summary="Created the order customization popup and made order logic changes">
+      <option name="closed" value="true" />
+      <created>1772179140946</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1772179140946</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Created the order customization popup and made order logic changes">
+      <option name="closed" value="true" />
+      <created>1772179172810</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772179172810</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +141,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Created the order customization popup and made order logic changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created the order customization popup and made order logic changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
