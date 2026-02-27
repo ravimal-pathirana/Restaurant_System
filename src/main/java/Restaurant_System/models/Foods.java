@@ -1,11 +1,11 @@
-package com.Restaurant_System.models;
+package Restaurant_System.models;
 
 public class Foods extends MenuItem {
 
     private boolean isSpicy;
 
-    public Foods(String name, String description, double basePrice, boolean isSpicy) {
-        super(name, description, basePrice);
+    public Foods(String name, String description, double basePrice, String imagePath, boolean isSpicy) {
+        super(name, description, basePrice,  imagePath);
         this.isSpicy = isSpicy;
     }
     public boolean isSpicy() {

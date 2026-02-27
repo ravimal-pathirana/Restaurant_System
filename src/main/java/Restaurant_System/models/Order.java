@@ -48,27 +48,6 @@ public class Order {
         this.isReady = isReady;
     }
 
-    public static Order currentOrder = new Order(101);
 
-    public static Order getCurrentOrder(){
-        return currentOrder;
-    }
-
-    public void showOrder(){
-        System.out.println("=== CART Order #"+orderId+"===");
-        for (MenuItem item : Items){
-            System.out.println("."+item.getName()+" Rs."+item.calculateFinalPrice());
-        }
-
-        System.out.println("TOTAL : Rs."+calculateTotalPrice());
-        System.out.println("------------------------------------------------");
-
-    }
-
-//    public static void clearCart() {
-//        currentOrder = new Order(1002);  // New order
-//        System.out.println(" Cart cleared!");
-//    }
-    //we have to call this after order ready
 
 }
