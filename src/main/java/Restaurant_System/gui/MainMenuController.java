@@ -11,16 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.Modality;
-
 
 import Restaurant_System.models.MenuCatalog;
 import Restaurant_System.models.MenuItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainMenuController {
@@ -43,11 +36,6 @@ public class MainMenuController {
         menuGrid.getChildren().clear();
 
         for (MenuItem item : catalog.getMenuItems()) {
-//            VBox foodCard = createFoodCard(
-//                    item.getName(),
-//                    item.getDescription(),
-//                    item.getBasePrice(),
-//                    item.getImagePath());
             VBox foodCard = createFoodCard(item);
             menuGrid.getChildren().add(foodCard);
         }
@@ -63,7 +51,7 @@ public class MainMenuController {
                 "-fx-alignment: center; " +
                 "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-        // --- 1. IMAGE HANDLING ---
+       // --- 1. IMAGE HANDLING ---
         ImageView imageView = new ImageView();
         try {
             Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
@@ -79,6 +67,7 @@ public class MainMenuController {
 
         } catch (Exception e) {
             System.out.println("Error loading image: " + item.getImagePath());
+            e.printStackTrace();
         }
 
         Label nameLabel = new Label(item.getName());

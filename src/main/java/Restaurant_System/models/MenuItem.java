@@ -8,10 +8,10 @@ public abstract class MenuItem {
     private String name;
     private String description;
     private double basePrice;
-    private String imagePath;
+    private final String imagePath;
 
-    private List<Extra> availableExtras;
-    private List<Extra> selectedExtras;
+    private final List<Extra> availableExtras;
+    private final List<Extra> selectedExtras;
 
     public MenuItem(String name, String description, double basePrice, String imagePath) {
         this.name = name;
@@ -48,7 +48,6 @@ public abstract class MenuItem {
 
     public abstract double calculateFinalPrice();
 
-    // --- ERROR FIXED HERE ---
     // Calculates Base Price + Cost of all selected Extras
     public double getTotalPrice() {
         double total = basePrice;
