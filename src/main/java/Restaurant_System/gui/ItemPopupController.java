@@ -1,14 +1,19 @@
 package Restaurant_System.gui;
 
+import java.io.InputStream;
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.CheckBox;
-import Restaurant_System.models.MenuItem;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
 import Restaurant_System.models.Extra;
+import Restaurant_System.models.MenuItem;
+import Restaurant_System.models.OrderItem;
 
 public class ItemPopupController {
 
@@ -20,13 +25,17 @@ public class ItemPopupController {
     @FXML private Label quantityLabel;
     @FXML private Button confirmButton;
 
-    private Runnable closeAction;
     private MenuItem currentItem;
-    private int quantity = 1; // Start at 1
+    private int quantity = 1;
+    private Runnable closeAction;
+    private Consumer<OrderItem> onAddToCart;
 
-    public void iniData(MenuItem item) {
+    public void initData(MenuItem item) {
         this.currentItem = item;
-        this.quantity = 1; // Reset quantity to 1 every time the popup opens
+        this.quantity = 1;
+
+        // Clears any unconfirmed extras from previous cancelled attempts
+        this.currentItem.getSelectedExtras().clear();
 
         popupName.setText(item.getName());
         popupDescription.setText(item.getDescription());
@@ -35,55 +44,58 @@ public class ItemPopupController {
             quantityLabel.setText(String.valueOf(quantity));
         }
 
-        // --- 1. IMAGE LOGIC ---
-        try {
-            Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
-            popupImage.setImage(image);
+        loadImage(item);
+        loadExtras(item);
+        updatePriceDisplay();
+    }
+
+    private void loadImage(MenuItem item) {
+        InputStream imageStream = getClass().getResourceAsStream(item.getImagePath());
+        if (imageStream != null) {
+            popupImage.setImage(new Image(imageStream));
             popupImage.setPreserveRatio(true);
             popupImage.setSmooth(true);
-        } catch (Exception e) {
-            System.out.println("Could not load image for: " + item.getName());
+        } else {
+            System.err.println("Image File not found for:  " + item.getName());
         }
+    }
 
-        // --- 2. EXTRAS LOGIC (Dynamic Checkboxes) ---
+    private void loadExtras(MenuItem item) {
         if (optionsContainer != null) {
-            optionsContainer.getChildren().clear(); // Clear leftovers from previous clicks
+            optionsContainer.getChildren().clear();
 
             for (Extra extra : item.getAvailableExtras()) {
                 CheckBox cb = new CheckBox(extra.toString());
 
-                // Make the checkbox actually do something
                 cb.setOnAction(e -> {
                     if (cb.isSelected()) {
-                        // --- ERROR FIXED HERE ---
-                        item.addSelectedExtra(extra); // Matches MenuItem method name exactly
+                        item.addSelectedExtra(extra);
                     } else {
                         item.getSelectedExtras().remove(extra);
                     }
-                    updatePriceDisplay(); // Instantly update the price label
+                    updatePriceDisplay();
                 });
 
                 optionsContainer.getChildren().add(cb);
             }
         }
-
-        // Show the initial price
-        updatePriceDisplay();
     }
 
-    // Helper method to calculate (Base Price + Extras) * Quantity
     private void updatePriceDisplay() {
         double total = currentItem.getTotalPrice() * quantity;
         popupPrice.setText("Rs. " + String.format("%.2f", total));
     }
 
-    // Connects the popup to the Main Menu's overlay
+    // --- 4. SETTERS FOR THE CONTROLLER BRIDGE ---
     public void setCloseAction(Runnable closeAction) {
         this.closeAction = closeAction;
     }
 
-    // --- 3. BUTTON CLICK METHODS ---
+    public void setOnAddToCart(Consumer<OrderItem> onAddToCart) {
+        this.onAddToCart = onAddToCart;
+    }
 
+    // --- 5. FXML BUTTON EVENT HANDLERS ---
     @FXML
     private void handlePlus() {
         quantity++;
@@ -93,7 +105,7 @@ public class ItemPopupController {
 
     @FXML
     private void handleMinus() {
-        if (quantity > 1) { // Prevents ordering 0 or negative items
+        if (quantity > 1) {
             quantity--;
             if (quantityLabel != null) quantityLabel.setText(String.valueOf(quantity));
             updatePriceDisplay();
@@ -102,14 +114,17 @@ public class ItemPopupController {
 
     @FXML
     private void handleConfirm() {
-        System.out.println("Confirmed " + quantity + "x " + currentItem.getName());
+        OrderItem newOrder = new OrderItem(currentItem, quantity);
 
-        // TODO: Pass 'currentItem' and 'quantity' to the order list on the right side!
+        if (onAddToCart != null) {
+            onAddToCart.accept(newOrder);
+        }
 
         if (closeAction != null) {
-            closeAction.run(); // Removes the dark overlay
+            closeAction.run();
         }
     }
+
     @FXML
     private void handleClose() {
         if (closeAction != null) {

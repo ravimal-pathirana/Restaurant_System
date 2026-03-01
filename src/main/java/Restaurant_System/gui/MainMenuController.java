@@ -1,5 +1,8 @@
 package Restaurant_System.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -11,35 +14,72 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Parent;
+import javafx.scene.layout.HBox;
+import javafx.geometry.Pos;
 
 import Restaurant_System.models.MenuCatalog;
 import Restaurant_System.models.MenuItem;
-
+import Restaurant_System.models.OrderItem;
 
 public class MainMenuController {
 
-    @FXML
-    private TilePane menuGrid;
-
+    @FXML private TilePane menuGrid;
     @FXML private StackPane rootStackPane;
+    @FXML private VBox cartVBox;
+    @FXML private Label totalLabel;
 
+    //Class Level Variables
+    private List<OrderItem> currentCart = new ArrayList<>();
+    private MenuCatalog catalog = new MenuCatalog();
+    private List<MenuItem> allItems;
 
     @FXML
     public void initialize() {
         System.out.println("MainMenuController initialized Successfully");
-        loadMenuCards();
+
+        // Save the full list of items when the app first opens
+        allItems = catalog.getMenuItems();
+
+        // Show all items on startup
+        displayItems(allItems);
     }
 
-    private void loadMenuCards() {
+    // --- LEFT PANEL ACTIONS ---
 
-        MenuCatalog catalog = new MenuCatalog();
+    @FXML
+    private void showAllItems() {
+        displayItems(allItems); // Sends the full, unfiltered list
+    }
+
+    @FXML
+    private void showFoods() {
+        List<MenuItem> foodsOnly = new ArrayList<>();
+        for (MenuItem item : allItems) {
+            if (item instanceof Restaurant_System.models.Foods) {
+                foodsOnly.add(item);
+            }
+        }
+        displayItems(foodsOnly); // Sends only the filtered list!
+    }
+
+    @FXML
+    private void showDrinks() {
+        List<MenuItem> drinksOnly = new ArrayList<>();
+        for (MenuItem item : allItems) {
+            if (item instanceof Restaurant_System.models.Drinks) {
+                drinksOnly.add(item);
+            }
+        }
+        displayItems(drinksOnly); // Sends only the filtered list!
+    }
+
+    private void displayItems(List<MenuItem> itemsToShow) {
         menuGrid.getChildren().clear();
 
-        for (MenuItem item : catalog.getMenuItems()) {
+        for (MenuItem item : itemsToShow) {
             VBox foodCard = createFoodCard(item);
             menuGrid.getChildren().add(foodCard);
         }
-
     }
 
     private VBox createFoodCard(MenuItem item) {
@@ -51,7 +91,7 @@ public class MainMenuController {
                 "-fx-alignment: center; " +
                 "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-       // --- 1. IMAGE HANDLING ---
+        // --- 1. IMAGE HANDLING ---
         ImageView imageView = new ImageView();
         try {
             Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
@@ -90,7 +130,6 @@ public class MainMenuController {
         });
 
         // --- 2. ADD IMAGE TO THE CARD ---
-        // Make sure 'imageView' is the FIRST thing in this list so it appears at the top!
         card.getChildren().addAll(imageView, nameLabel, descLabel, priceLabel, addButton);
 
         return card;
@@ -102,20 +141,23 @@ public class MainMenuController {
             Parent popupRoot = loader.load();
 
             ItemPopupController popupController = loader.getController();
-            popupController.iniData(selectedItem);
+
+            popupController.initData(selectedItem);
+
+            // --- THE NEW BRIDGE ---
+            popupController.setOnAddToCart(orderItem -> {
+                currentCart.add(orderItem);
+                updateCartUI();
+                System.out.println("SUCCESS: Added " + orderItem.getQuantity() + "x " + orderItem.getItem().getName() + " to the cart!");
+            });
 
             // --- THE OVERLAY LOGIC ---
-            // Create a dark, semi-transparent background
             StackPane overlay = new StackPane();
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);"); // 60% black
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
 
-            // Add the popup to the center of the dark background
             overlay.getChildren().add(popupRoot);
-
-            // Add the overlay to the main screen
             rootStackPane.getChildren().add(overlay);
 
-            // Tell the popup controller how to close itself!
             popupController.setCloseAction(() -> rootStackPane.getChildren().remove(overlay));
 
         } catch (Exception e) {
@@ -123,4 +165,49 @@ public class MainMenuController {
         }
     }
 
+    private void updateCartUI() {
+        // 1. Wipe the screen clean
+        cartVBox.getChildren().clear();
+        double grandTotal = 0.0;
+
+        // 2. Loop through the background data
+        for (OrderItem orderItem : currentCart) {
+
+            // Create a small container for this specific row
+            VBox rowContainer = new VBox(2);
+            rowContainer.setStyle("-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 5 0;");
+
+            // Main Name and Quantity Label
+            Label nameLabel = new Label(orderItem.getQuantity() + "x " + orderItem.getItem().getName());
+            nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+
+            rowContainer.getChildren().add(nameLabel);
+
+            // Loop through any extras and add them as smaller text
+            if (!orderItem.getItem().getSelectedExtras().isEmpty()) {
+                for (Restaurant_System.models.Extra extra : orderItem.getItem().getSelectedExtras()) {
+                    Label extraLabel = new Label("+ " + extra.getName());
+                    extraLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #777777;");
+                    rowContainer.getChildren().add(extraLabel);
+                }
+            }
+
+            // Price for this row (aligned to the right)
+            Label rowPriceLabel = new Label("Rs. " + String.format("%.2f", orderItem.getTotalPrice()));
+            rowPriceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #555555;");
+
+            HBox priceBox = new HBox(rowPriceLabel);
+            priceBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
+            rowContainer.getChildren().add(priceBox);
+
+            // 3. Drop the completed row into the right panel!
+            cartVBox.getChildren().add(rowContainer);
+
+            // 4. Add to the running total
+            grandTotal += orderItem.getTotalPrice();
+        }
+
+        // Update the big label at the bottom
+        totalLabel.setText("Rs. " + String.format("%.2f", grandTotal));
+    }
 }

@@ -1,10 +1,1 @@
-Restaurant_System\main\Main.class
-Restaurant_System\models\Foods.class
-Restaurant_System\models\MenuItem.class
-Restaurant_System\gui\MainMenuController.class
-Restaurant_System\models\Extra.class
-Restaurant_System\models\Drinks.class
-Restaurant_System\gui\ItemPopupController.class
-Restaurant_System\models\MenuCatalog.class
-Restaurant_System\models\Order.class
-Restaurant_System\utils\KitchenThread.class
+Restaurant_System/models/OrderItem.class

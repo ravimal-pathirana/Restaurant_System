@@ -8,6 +8,7 @@ public class Order {
     private int orderId;
     private List<MenuItem> Items;
     private boolean isReady;
+    private List<OrderItem> CurrentOrder;
 
     public Order(int orderId) {
         this.orderId = orderId;
