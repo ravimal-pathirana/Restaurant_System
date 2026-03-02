@@ -1,5 +1,9 @@
 package Restaurant_System.gui;
 
+import Restaurant_System.models.Extra;
+import Restaurant_System.models.MenuItem;
+import Restaurant_System.models.OrderItem;
+
 import java.io.InputStream;
 import java.util.function.Consumer;
 
@@ -10,10 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-
-import Restaurant_System.models.Extra;
-import Restaurant_System.models.MenuItem;
-import Restaurant_System.models.OrderItem;
 
 public class ItemPopupController {
 
@@ -34,7 +34,7 @@ public class ItemPopupController {
         this.currentItem = item;
         this.quantity = 1;
 
-        // Clears any unconfirmed extras from previous cancelled attempts
+        // Clears any unconfirmed extras from previous canceled attempts
         this.currentItem.getSelectedExtras().clear();
 
         popupName.setText(item.getName());
@@ -86,7 +86,7 @@ public class ItemPopupController {
         popupPrice.setText("Rs. " + String.format("%.2f", total));
     }
 
-    // --- 4. SETTERS FOR THE CONTROLLER BRIDGE ---
+    // 4. SETTERS FOR THE CONTROLLER BRIDGE
     public void setCloseAction(Runnable closeAction) {
         this.closeAction = closeAction;
     }
@@ -95,7 +95,7 @@ public class ItemPopupController {
         this.onAddToCart = onAddToCart;
     }
 
-    // --- 5. FXML BUTTON EVENT HANDLERS ---
+    //  5. FXML BUTTON EVENT HANDLERS
     @FXML
     private void handlePlus() {
         quantity++;

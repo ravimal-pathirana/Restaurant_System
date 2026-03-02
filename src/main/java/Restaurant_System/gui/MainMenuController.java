@@ -1,5 +1,10 @@
 package Restaurant_System.gui;
 
+import Restaurant_System.models.MenuCatalog;
+import Restaurant_System.models.MenuItem;
+import Restaurant_System.models.OrderItem;
+import Restaurant_System.utils.KitchenThread;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +22,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressBar;
-import javafx.application.Platform;
-
-import Restaurant_System.models.MenuCatalog;
-import Restaurant_System.models.MenuItem;
-import Restaurant_System.models.OrderItem;
 
 public class MainMenuController {
 
@@ -32,7 +32,7 @@ public class MainMenuController {
     @FXML private ProgressBar orderProgressBar;
     @FXML private Label statusLabel;
 
-    //Class Level Variables
+    // Class Level Variables
     private List<OrderItem> currentCart = new ArrayList<>();
     private MenuCatalog catalog = new MenuCatalog();
     private List<MenuItem> allItems;
@@ -48,7 +48,7 @@ public class MainMenuController {
         displayItems(allItems);
     }
 
-    // --- LEFT PANEL ACTIONS ---
+    // Left Panel Actions are handled here
 
     @FXML
     private void showAllItems() {
@@ -63,7 +63,7 @@ public class MainMenuController {
                 foodsOnly.add(item);
             }
         }
-        displayItems(foodsOnly); // Sends only the filtered list!
+        displayItems(foodsOnly); // Sends only the filtered list
     }
 
     @FXML
@@ -74,7 +74,7 @@ public class MainMenuController {
                 drinksOnly.add(item);
             }
         }
-        displayItems(drinksOnly); // Sends only the filtered list!
+        displayItems(drinksOnly); // Sends only the filtered list
     }
 
     private void displayItems(List<MenuItem> itemsToShow) {
@@ -86,6 +86,7 @@ public class MainMenuController {
         }
     }
 
+    // Creates a Box to show each Menu Item.
     private VBox createFoodCard(MenuItem item) {
 
         VBox card = new VBox(10);
@@ -95,7 +96,7 @@ public class MainMenuController {
                 "-fx-alignment: center; " +
                 "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-        // --- 1. IMAGE HANDLING ---
+        // 1. Image Handling - Inserting Images in to the box
         ImageView imageView = new ImageView();
         try {
             Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
@@ -114,18 +115,22 @@ public class MainMenuController {
             e.printStackTrace();
         }
 
+        // Label for displaying the Menu Item Name
         Label nameLabel = new Label(item.getName());
         nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
 
+        // Label to display the Menu Item Description
         Label descLabel = new Label(item.getDescription());
         descLabel.setWrapText(true);
         descLabel.setMinHeight(40);
         descLabel.setMaxWidth(160);
         descLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #666666; -fx-text-alignment: center;");
 
+        // Label to display the Price of the Menu Item.
         Label priceLabel = new Label("Rs." + String.format("%.2f", item.getBasePrice()));
         priceLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #d9534f;");
 
+        // Add to order Button
         Button addButton = new Button("Add to Order");
         addButton.setStyle("-fx-background-color: #28a745; -fx-text-fill: white; -fx-cursor: hand;");
 
@@ -133,7 +138,6 @@ public class MainMenuController {
             openItemPopup(item); // This calls your popup method
         });
 
-        // --- 2. ADD IMAGE TO THE CARD ---
         card.getChildren().addAll(imageView, nameLabel, descLabel, priceLabel, addButton);
 
         return card;
@@ -148,14 +152,13 @@ public class MainMenuController {
 
             popupController.initData(selectedItem);
 
-            // --- THE NEW BRIDGE ---
             popupController.setOnAddToCart(orderItem -> {
                 currentCart.add(orderItem);
                 updateCartUI();
                 System.out.println("SUCCESS: Added " + orderItem.getQuantity() + "x " + orderItem.getItem().getName() + " to the cart!");
             });
 
-            // --- THE OVERLAY LOGIC ---
+            // Overlay Logic
             StackPane overlay = new StackPane();
             overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
 
@@ -170,11 +173,12 @@ public class MainMenuController {
     }
 
     private void updateCartUI() {
-        // 1. Wipe the screen clean
+        // Clearing the Screen
         cartVBox.getChildren().clear();
+
         double grandTotal = 0.0;
 
-        // 2. Loop through the background data
+        // Loop through the background data
         for (OrderItem orderItem : currentCart) {
 
             // Create a small container for this specific row
@@ -217,7 +221,7 @@ public class MainMenuController {
 
     @FXML
     private void handleCheckout() {
-        // 1. Guard check: Don't checkout an empty cart!
+        // 1. Guard check
         if (currentCart.isEmpty()) {
             Alert emptyAlert = new Alert(Alert.AlertType.WARNING);
             emptyAlert.setTitle("Empty Cart");
@@ -227,53 +231,30 @@ public class MainMenuController {
             return;
         }
 
-        // 2. Show the Success Popup
+        // 2. Success Popup
         Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
         successAlert.setTitle("Checkout Success");
         successAlert.setHeaderText(null);
         successAlert.setContentText("Order placed successfully! Sending to the kitchen.");
-        successAlert.showAndWait(); // This blocks the code until the user clicks "OK"
+        successAlert.showAndWait();
 
-        // 3. Clear the Right Side Panel
-        int totalItems = currentCart.size(); // Save the number to show in our status label
+        // 4. Update the Left Panel UI
+        int totalItems = currentCart.size();
+        statusLabel.setText("Preparing " + totalItems + " items...");
+        orderProgressBar.setProgress(0.0);
+        orderProgressBar.setStyle(""); // Reset color to default blue
+
+        // 5. Clear the Cart UI
         currentCart.clear();
         updateCartUI();
 
-        // 4. Update the Left Panel UI to start preparing
-        statusLabel.setText("Preparing " + totalItems + " items...");
-        orderProgressBar.setProgress(0.0);
+        // 6. THE NEW MULTITHREADING CALL
+        // Create our custom task and pass it the UI elements it needs to update
+        KitchenThread kitchenTask = new KitchenThread(orderProgressBar, statusLabel, totalItems);
 
-        // --- 5. THE MULTITHREADING MAGIC ---
-        Thread kitchenThread = new Thread(() -> {
-            try {
-                // Loop to fill the progress bar over 4 seconds
-                for (double i = 0; i <= 1.0; i += 0.05) {
-                    final double currentProgress = i;
-
-                    // We MUST use Platform.runLater to update the UI from a background thread!
-                    Platform.runLater(() -> {
-                        orderProgressBar.setProgress(currentProgress);
-                    });
-
-                    Thread.sleep(200); // Wait 200 milliseconds between each tick
-                }
-
-                // When the loop finishes, the order is done!
-                Platform.runLater(() -> {
-                    orderProgressBar.setProgress(1.0);
-                    statusLabel.setText("Order Ready!");
-
-                    // Optional: Make the progress bar green when done!
-                    orderProgressBar.setStyle("-fx-accent: #28a745;");
-                });
-
-            } catch (InterruptedException e) {
-                System.err.println("Kitchen thread was interrupted!");
-            }
-        });
-
-        // Set daemon so the thread dies if the user closes the app
-        kitchenThread.setDaemon(true);
-        kitchenThread.start(); // Fire up the kitchen!
+        // Hand the task to a new Java Thread and start it
+        Thread thread = new Thread(kitchenTask);
+        thread.setDaemon(true);
+        thread.start();
     }
 }

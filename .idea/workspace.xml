@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="43812f19-e237-449d-80b2-65df8c151768" name="Changes" comment="Created the order customization popup and made order logic changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/ItemPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/ItemPopupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuCatalog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/utils/KitchenThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/utils/KitchenThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Restaurant_System/gui/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Restaurant_System/gui/MainMenu.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Restaurant_System/gui/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Restaurant_System/gui/MainMenu.fxml" afterDir="false" />
     </list>
@@ -62,6 +67,7 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ravimal_pathirana/Downloads/HospitalAppointmentFX&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -108,6 +114,8 @@
       <workItem from="1772369661589" duration="4115000" />
       <workItem from="1772379456578" duration="1190000" />
       <workItem from="1772427005911" duration="4732000" />
+      <workItem from="1772436231455" duration="1338000" />
+      <workItem from="1772466413639" duration="6090000" />
     </task>
     <task id="LOCAL-00001" summary="Created the order customization popup and made order logic changes">
       <option name="closed" value="true" />

@@ -27,7 +27,6 @@ public abstract class MenuItem {
         this.availableExtras.add(extra);
     }
 
-    // This is the method the Controller needs to call
     public void addSelectedExtra(Extra extra) {
         this.selectedExtras.add(extra);
     }

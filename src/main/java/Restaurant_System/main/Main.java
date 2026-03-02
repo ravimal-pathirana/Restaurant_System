@@ -11,9 +11,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Restaurant_System/gui/MainMenu.fxml"));
 
-        // 4. Setting up the window (The Stage)
-        primaryStage.setTitle("Restaurant POS System");
-        primaryStage.setScene(new Scene(root, 1024, 768)); // Width and Height of the window
+        // Setting up the window
+        primaryStage.setTitle("Restaurant System");
+        primaryStage.setScene(new Scene(root, 1240, 768)); // Width and Height of the window
         primaryStage.show();
 
     }

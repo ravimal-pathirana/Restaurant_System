@@ -1,7 +1,7 @@
 # Restaurant_System
-A Java based restaurant food ordering system developed using Object Oriented Programming concepts, Featuring an Interactive GUI and Multithreading.
+A Java based restaurant food ordering system developed using Object-Oriented Programming concepts, Featuring an Interactive GUI and Multithreading.
 
-To view the GUI please run the Main class in the main folder(src/com/Restaurant_System/main/Main.java)
+
 
 ## Key Features
 
@@ -12,5 +12,6 @@ To view the GUI please run the Main class in the main folder(src/com/Restaurant_
 
 ## Technologies Used
 
-* **Language:** Java
-* **Paradigm:** Object-Oriented Programming (OOP)
+* **Language:** Java.
+* **Paradigm:** Object-Oriented Programming (OOP).
+* **GUI:** Developed Using Java-Fx.
