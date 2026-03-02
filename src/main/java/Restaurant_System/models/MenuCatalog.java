@@ -22,14 +22,13 @@ public class MenuCatalog {
         Extra extraIce = new Extra("Extra Ice", 0.00);
         Extra extraSalt = new Extra("Extra Salt", 0.00);
 
-        Foods pizza = new Foods("Cheese Pizza", "FOOD DESCRIPTION",950.00,"/images/ChickenPizza.jpg" ,  false);
+        Foods pizza = new Foods("Pizza", "FOOD DESCRIPTION",950.00,"/images/ChickenPizza.jpg" ,  false);
         pizza.addAvailableExtra(extraCheese);
         pizza.addAvailableExtra(mushrooms);
         menuItems.add(pizza);
 
-        Foods burger = new Foods("Chicken Burger", "FOOD DESCRIPTION", 600.00, "/images/ChickenBurger.jpg", true);
+        Foods burger = new Foods("Burger", "FOOD DESCRIPTION", 600.00, "/images/ChickenBurger.jpg", true);
         burger.addAvailableExtra(extraCheese);
-        burger.addAvailableExtra(mushrooms);
         menuItems.add(burger);
 
         Foods kottu = new Foods("Kottu", "FOOD DESCRIPTION", 750.00, "/images/Kottu.jpg", false);
@@ -42,6 +41,7 @@ public class MenuCatalog {
         menuItems.add(frenchFries);
 
         Drinks cocaCola = new Drinks("Coca-Cola", "DRINK DESCRIPTION", 250.00, "/images/CocaCola.jpg", "Regular");
+        cocaCola.addAvailableExtra(extraIce);
         menuItems.add(cocaCola);
 
         Drinks papayaJuice = new Drinks("Papaya Juice", "DRINK DESCRIPTION", 200.00, "/images/PapayaJuice.jpg", "Large");
@@ -51,6 +51,7 @@ public class MenuCatalog {
         menuItems.add(milkTea);
 
         Drinks iceCoffee = new Drinks("Ice Coffee", "DRINK DESCRIPTION", 60.00, "/images/IceCoffee.jpg", "Regular");
+        iceCoffee.addAvailableExtra(extraIce);
         menuItems.add(iceCoffee);
 
         Drinks Milo = new Drinks("Milo", "Drink Description", 100.00, "/images/Milo.jpeg", "Regular");

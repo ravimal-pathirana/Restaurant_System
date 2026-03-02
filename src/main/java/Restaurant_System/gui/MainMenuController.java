@@ -15,7 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
+import javafx.application.Platform;
 
 import Restaurant_System.models.MenuCatalog;
 import Restaurant_System.models.MenuItem;
@@ -27,6 +29,8 @@ public class MainMenuController {
     @FXML private StackPane rootStackPane;
     @FXML private VBox cartVBox;
     @FXML private Label totalLabel;
+    @FXML private ProgressBar orderProgressBar;
+    @FXML private Label statusLabel;
 
     //Class Level Variables
     private List<OrderItem> currentCart = new ArrayList<>();
@@ -209,5 +213,67 @@ public class MainMenuController {
 
         // Update the big label at the bottom
         totalLabel.setText("Rs. " + String.format("%.2f", grandTotal));
+    }
+
+    @FXML
+    private void handleCheckout() {
+        // 1. Guard check: Don't checkout an empty cart!
+        if (currentCart.isEmpty()) {
+            Alert emptyAlert = new Alert(Alert.AlertType.WARNING);
+            emptyAlert.setTitle("Empty Cart");
+            emptyAlert.setHeaderText(null);
+            emptyAlert.setContentText("Please add items to the order before checking out.");
+            emptyAlert.showAndWait();
+            return;
+        }
+
+        // 2. Show the Success Popup
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setTitle("Checkout Success");
+        successAlert.setHeaderText(null);
+        successAlert.setContentText("Order placed successfully! Sending to the kitchen.");
+        successAlert.showAndWait(); // This blocks the code until the user clicks "OK"
+
+        // 3. Clear the Right Side Panel
+        int totalItems = currentCart.size(); // Save the number to show in our status label
+        currentCart.clear();
+        updateCartUI();
+
+        // 4. Update the Left Panel UI to start preparing
+        statusLabel.setText("Preparing " + totalItems + " items...");
+        orderProgressBar.setProgress(0.0);
+
+        // --- 5. THE MULTITHREADING MAGIC ---
+        Thread kitchenThread = new Thread(() -> {
+            try {
+                // Loop to fill the progress bar over 4 seconds
+                for (double i = 0; i <= 1.0; i += 0.05) {
+                    final double currentProgress = i;
+
+                    // We MUST use Platform.runLater to update the UI from a background thread!
+                    Platform.runLater(() -> {
+                        orderProgressBar.setProgress(currentProgress);
+                    });
+
+                    Thread.sleep(200); // Wait 200 milliseconds between each tick
+                }
+
+                // When the loop finishes, the order is done!
+                Platform.runLater(() -> {
+                    orderProgressBar.setProgress(1.0);
+                    statusLabel.setText("Order Ready!");
+
+                    // Optional: Make the progress bar green when done!
+                    orderProgressBar.setStyle("-fx-accent: #28a745;");
+                });
+
+            } catch (InterruptedException e) {
+                System.err.println("Kitchen thread was interrupted!");
+            }
+        });
+
+        // Set daemon so the thread dies if the user closes the app
+        kitchenThread.setDaemon(true);
+        kitchenThread.start(); // Fire up the kitchen!
     }
 }

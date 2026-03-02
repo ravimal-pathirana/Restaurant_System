@@ -6,13 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="43812f19-e237-449d-80b2-65df8c151768" name="Changes" comment="Created the order customization popup and made order logic changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/ItemPopupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/ItemPopupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/gui/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuCatalog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Restaurant_System/models/MenuCatalog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Restaurant_System/gui/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Restaurant_System/gui/MainMenu.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Restaurant_System/gui/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Restaurant_System/gui/MainMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +106,8 @@
       <workItem from="1772291057376" duration="4895000" />
       <workItem from="1772299256639" duration="719000" />
       <workItem from="1772369661589" duration="4115000" />
+      <workItem from="1772379456578" duration="1190000" />
+      <workItem from="1772427005911" duration="4732000" />
     </task>
     <task id="LOCAL-00001" summary="Created the order customization popup and made order logic changes">
       <option name="closed" value="true" />
